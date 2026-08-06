@@ -1403,123 +1403,13 @@ svg.leaflet-image-layer.leaflet-interactive path {
         .wialon-result.loading{ background:var(--panel-2); color:var(--text-dim); }
         .wialon-result .detail{ color:var(--text); font-family:'IBM Plex Mono', monospace; font-size:.8rem; margin-top:8px; }
         .wialon-unit-list{ margin-top:10px; max-height:200px; overflow-y:auto; background:var(--panel-2); border-radius:8px; padding:8px 12px; }
-        .wialon-unit-list div{ padding:3px 0; font-family:'IBM Plex Mono', monospace; font-size:.8rem; color:var(--text); }/* ---------- Settings ---------- */
-#view-settings{ flex-direction:column; padding:24px 28px; overflow-y:auto; }
-#view-settings > div{ width:100%; }
-
-.settings-card{
-background:var(--panel-2); border:1px solid var(--line); border-radius:12px;
-padding:18px; margin-bottom:16px;
-}
-.settings-card .section-label{ margin-bottom:12px; }
-
-.settings-row{
-display:flex; align-items:center; justify-content:space-between;
-gap:16px; flex-wrap:wrap;
-}
-.settings-label{ font-size:.85rem; color:var(--text-dim); }
-
-.settings-grid{
-display:grid; grid-template-columns:1fr 1fr; gap:14px;
-}
-@media (max-width:640px){
-.settings-grid{ grid-template-columns:1fr; }
-}
-
-#lang-toggle{
-display:flex; gap:2px; background:var(--panel-2); border:1px solid var(--line);
-border-radius:9px; padding:3px; flex-wrap:wrap;
-}
-.lang-btn{
-background:transparent; border:none; color:var(--text-dim);
-font-family:'IBM Plex Sans', sans-serif; font-size:.85rem; font-weight:600;
-padding:8px 16px; border-radius:7px; cursor:pointer; transition:.15s;
-}
-.lang-btn.active{
-background:linear-gradient(135deg, var(--indigo), var(--purple)); color:#fff;
-box-shadow:0 2px 10px rgba(109,91,255,.35);
-}
-.lang-btn:not(.active):hover{ color:var(--text); background:var(--panel-3); }
-
-.settings-card input[type="number"]{ max-width:100%; }
-.settings-card hr{ margin:18px 0; }
-
-/* ---------- Arabic / RTL ---------- */
-[dir="rtl"] body,
-[dir="rtl"] button,
-[dir="rtl"] input,
-[dir="rtl"] select,
-[dir="rtl"] textarea{
-font-family:'IBM Plex Sans','Segoe UI',Tahoma,Arial,sans-serif;
-}
-
-[dir="rtl"] .brand h1,
-[dir="rtl"] .brand span,
-[dir="rtl"] .section-label,
-[dir="rtl"] #topbar-stats,
-[dir="rtl"] .kpi-label,
-[dir="rtl"] label{
-font-family:'IBM Plex Sans','Segoe UI',Tahoma,Arial,sans-serif;
-}
-
-[dir="rtl"] #topbar{ direction:rtl; }
-[dir="rtl"] #tabs{ direction:rtl; }
-[dir="rtl"] #topbar-stats{ direction:rtl; }
-
-[dir="rtl"] #sidebar{
-border-right:none; border-left:1px solid var(--line);
-transition:margin-right .38s cubic-bezier(.4,0,.2,1);
-}
-[dir="rtl"] #sidebar.collapsed{
-margin-left:0; margin-right:-400px;
-}
-
-[dir="rtl"] #floating-menu-btn{ left:auto; right:18px; }
-[dir="rtl"] #layer-toggle{ right:auto; left:15px; }
-
-[dir="rtl"] .section-label,
-[dir="rtl"] .form-group,
-[dir="rtl"] .stat-line,
-[dir="rtl"] .settings-row,
-[dir="rtl"] .settings-card,
-[dir="rtl"] #fleet-header,
-[dir="rtl"] .kpi-row,
-[dir="rtl"] .dash-panel,
-[dir="rtl"] .truck-row,
-[dir="rtl"] .live-fleet-row,
-[dir="rtl"] .convoy-chips,
-[dir="rtl"] .geofence-row,
-[dir="rtl"] .row-actions,
-[dir="rtl"] .dash-notif-row,
-[dir="rtl"] .live-fleet-filters{
-direction:rtl;
-}
-
-[dir="rtl"] thead th,
-[dir="rtl"] tbody td{
-text-align:right;
-}
-
-[dir="rtl"] input,
-[dir="rtl"] select,
-[dir="rtl"] textarea{
-text-align:right;
-}
-
-[dir="rtl"] .leaflet-container{
-direction:ltr;
-}
-
-[dir="rtl"] #print-summary-area{
-direction:ltr;
-text-align:left;
-}
+        .wialon-unit-list div{ padding:3px 0; font-family:'IBM Plex Mono', monospace; font-size:.8rem; color:var(--text); }
     </style>
 </head>
 <body>
 
 <div id="app-shell">
-   <div id="topbar">
+    <div id="topbar">
 <div class="brand">
 <div class="brand-mark">🚚</div>
 <div>
@@ -1833,7 +1723,7 @@ text-align:left;
             </div>
         </div>
 
-        <!-- ================= SETTINGS VIEW ================= -->
+     <!-- ================= SETTINGS VIEW ================= -->
 <div id="view-settings" class="view" style="flex-direction:column; padding:24px 28px; overflow-y:auto;">
 <div style="max-width:760px; margin:0 auto; padding-top:20px; width:100%;">
 <div id="fleet-header">
@@ -2634,8 +2524,6 @@ window.onload = function () {
         setupDashboardControls();
         setupNotificationsLogControls();
         setupMonitoringControls();
-		setupSettingsControls();
-(function(){ let saved=null; try{ saved = localStorage.getItem('omd_lang'); }catch(e){} if(saved && I18N[saved]) currentLang = saved; applyI18n(); })();
         const soundBtn = document.getElementById('sound-toggle-btn');
         if (soundBtn) soundBtn.addEventListener('click', toggleSoundAlerts);
         updateStatsDisplays();
@@ -2827,33 +2715,31 @@ function wireTopLevelControls() {
 }
 
 function switchView(viewName) {
-   function switchView(viewName) {
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.view === viewName));
-  document.getElementById('view-dispatch').classList.toggle('active', viewName === 'dispatch');
-  document.getElementById('view-fleet').classList.toggle('active', viewName === 'fleet');
-  document.getElementById('view-settings').classList.toggle('active', viewName === 'settings');
-  document.getElementById('view-queue').classList.toggle('active', viewName === 'queue');
-  document.getElementById('view-history').classList.toggle('active', viewName === 'history');
-  document.getElementById('view-dashboard').classList.toggle('active', viewName === 'dashboard');
-  document.getElementById('view-notifications').classList.toggle('active', viewName === 'notifications');
-  document.getElementById('view-monitoring').classList.toggle('active', viewName === 'monitoring');
+
+  const viewIds = ['dispatch', 'fleet', 'settings', 'queue', 'history', 'dashboard', 'notifications', 'monitoring'];
+  viewIds.forEach(v => {
+    const el = document.getElementById('view-' + v);
+    if (el) el.classList.toggle('active', v === viewName);
+  });
+
   if (viewName === 'dispatch') {
-    setTimeout(() => { if (map) map.invalidateSize(); }, 50);
+    setTimeout(() => { if (typeof map !== 'undefined' && map) map.invalidateSize(); }, 50);
   } else if (viewName === 'fleet') {
-    renderFleetTable();
+    if (typeof renderFleetTable === 'function') renderFleetTable();
   } else if (viewName === 'settings') {
-    renderGeofenceList();
-    renderManualSiteList();
+    if (typeof renderGeofenceList === 'function') renderGeofenceList();
+    if (typeof renderManualSiteList === 'function') renderManualSiteList();
   } else if (viewName === 'queue') {
-    renderDispatchQueue();
+    if (typeof renderDispatchQueue === 'function') renderDispatchQueue();
   } else if (viewName === 'history') {
-    renderHistoryTable();
+    if (typeof renderHistoryTable === 'function') renderHistoryTable();
   } else if (viewName === 'dashboard') {
-    renderDashboard();
+    if (typeof renderDashboard === 'function') renderDashboard();
   } else if (viewName === 'notifications') {
-    renderNotificationsLog();
+    if (typeof renderNotificationsLog === 'function') renderNotificationsLog();
   } else if (viewName === 'monitoring') {
-    renderMonitoringTable();
+    if (typeof renderMonitoringTable === 'function') renderMonitoringTable();
   }
 }
 
@@ -4819,194 +4705,6 @@ function setupThemeToggle() {
 
 
 
-// ==========================================
-// 🌍 INTERNATIONALIZATION (EN / FR / AR)
-// ==========================================
-const I18N = {
-en: {
-"brand.title": "Fleet Route Monitor",
-"brand.subtitle": "OMD Transport · Amouda Line",
-"tab.dashboard": "Dashboard",
-"tab.dispatch": "Dispatch",
-"tab.monitoring": "Monitoring",
-"tab.queue": "Queue",
-"tab.fleet": "Active Fleet",
-"tab.history": "History",
-"tab.notifications": "Notifications",
-"tab.settings": "Settings",
-"topbar.active": "Active",
-"set.title": "Settings",
-"set.desc": "Language, appearance, geofences, Wialon connection and monitoring thresholds.",
-"set.language": "Language",
-"set.appearance": "Appearance",
-"set.theme": "Theme",
-"set.themeDark": "Dark theme",
-"set.themeLight": "Light theme",
-"set.themeBlack": "Black theme",
-"set.thresholds": "Monitoring & Alerts",
-"set.speedLimit": "Speed limit (km/h)",
-"set.deviationBuffer": "Route deviation buffer (m)",
-"set.arrivalBuffer": "Site arrival buffer (m)",
-"set.pollInterval": "Live polling interval (seconds)",
-"set.geofences": "Geofences & Sites",
-"set.geoDesc": "Add a new destination site directly, or bulk-import real zone shapes from Wialon KML exports.",
-"set.addSite": "➕ Add a new site",
-"set.clientName": "Client name",
-"set.clientPh": "e.g. EL BAYRAK EQUIPE 1 MATIN",
-"set.siteName": "Site / destination name",
-"set.sitePh": "e.g. ANNABA",
-"set.coords": "Coordinates",
-"set.coordsPh": "e.g. 36.6417633, 3.2927783",
-"set.saveSite": "Save site",
-"set.bulkImport": "📦 Bulk import from Wialon (KML)",
-"set.uploadKml": "Upload KML file(s)",
-"set.pasteKml": "...or paste KML content directly",
-"set.pastePh": "Paste raw KML XML here",
-"set.addPasted": "Add from pasted KML",
-"set.manualSites": "Manually added sites",
-"set.loadedZones": "Loaded KML zones",
-"set.wialon": "Wialon Connection",
-"set.wialonDesc": "Paste your token to confirm it authenticates and can see your fleet. Nothing here is saved to the file.",
-"set.relay": "Relay URL",
-"set.server": "Wialon server",
-"set.token": "API token",
-"set.tokenPh": "Paste your Wialon token here",
-"set.testBtn": "Test Connection"
-},
-fr: {
-"brand.title": "Moniteur d'Itinéraires Flotte",
-"brand.subtitle": "Transport OMD · Ligne Amouda",
-"tab.dashboard": "Tableau de bord",
-"tab.dispatch": "Répartition",
-"tab.monitoring": "Suivi",
-"tab.queue": "File",
-"tab.fleet": "Flotte active",
-"tab.history": "Historique",
-"tab.notifications": "Notifications",
-"tab.settings": "Paramètres",
-"topbar.active": "Actifs",
-"set.title": "Paramètres",
-"set.desc": "Langue, apparence, géoclôtures, connexion Wialon et seuils de suivi.",
-"set.language": "Langue",
-"set.appearance": "Apparence",
-"set.theme": "Thème",
-"set.themeDark": "Thème sombre",
-"set.themeLight": "Thème clair",
-"set.themeBlack": "Thème noir",
-"set.thresholds": "Suivi & Alertes",
-"set.speedLimit": "Limite de vitesse (km/h)",
-"set.deviationBuffer": "Marge de déviation (m)",
-"set.arrivalBuffer": "Marge d'arrivée au site (m)",
-"set.pollInterval": "Intervalle de rafraîchissement (s)",
-"set.geofences": "Géoclôtures & Sites",
-"set.geoDesc": "Ajoutez un nouveau site de destination, ou importez en lot des formes de zones depuis des exports KML Wialon.",
-"set.addSite": "➕ Ajouter un nouveau site",
-"set.clientName": "Nom du client",
-"set.clientPh": "ex. EL BAYRAK EQUIPE 1 MATIN",
-"set.siteName": "Nom du site / destination",
-"set.sitePh": "ex. ANNABA",
-"set.coords": "Coordonnées",
-"set.coordsPh": "ex. 36.6417633, 3.2927783",
-"set.saveSite": "Enregistrer le site",
-"set.bulkImport": "📦 Import groupé depuis Wialon (KML)",
-"set.uploadKml": "Télécharger le(s) fichier(s) KML",
-"set.pasteKml": "...ou coller directement le contenu KML",
-"set.pastePh": "Coller le XML KML brut ici",
-"set.addPasted": "Ajouter depuis le KML collé",
-"set.manualSites": "Sites ajoutés manuellement",
-"set.loadedZones": "Zones KML chargées",
-"set.wialon": "Connexion Wialon",
-"set.wialonDesc": "Collez votre jeton pour confirmer qu'il fonctionne et voit votre flotte. Rien n'est enregistré ici.",
-"set.relay": "URL du relais",
-"set.server": "Serveur Wialon",
-"set.token": "Jeton API",
-"set.tokenPh": "Collez votre jeton Wialon ici",
-"set.testBtn": "Tester la connexion"
-},
-ar: {
-"brand.title": "مراقب مسارات الأسطول",
-"brand.subtitle": "نقل OMD · خط عمودة",
-"tab.dashboard": "لوحة التحكم",
-"tab.dispatch": "الإرسال",
-"tab.monitoring": "المراقبة",
-"tab.queue": "قائمة الانتظار",
-"tab.fleet": "الأسطول النشط",
-"tab.history": "السجل",
-"tab.notifications": "الإشعارات",
-"tab.settings": "الإعدادات",
-"topbar.active": "نشط",
-"set.title": "الإعدادات",
-"set.desc": "اللغة والمظهر والمناطق الجغرافية واتصال Wialon وعتبات المراقبة.",
-"set.language": "اللغة",
-"set.appearance": "المظهر",
-"set.theme": "السمة",
-"set.themeDark": "سمة داكنة",
-"set.themeLight": "سمة فاتحة",
-"set.themeBlack": "سمة سوداء",
-"set.thresholds": "المراقبة والتنبيهات",
-"set.speedLimit": "حد السرعة (كم/س)",
-"set.deviationBuffer": "هامش انحراف المسار (م)",
-"set.arrivalBuffer": "هامش الوصول للموقع (م)",
-"set.pollInterval": "الفاصل الزمني للتحديث (ثانية)",
-"set.geofences": "المناطق الجغرافية والمواقع",
-"set.geoDesc": "أضف موقع وجهة جديدًا مباشرة، أو استورد أشكال مناطق حقيقية من ملفات KML الخاصة بـ Wialon.",
-"set.addSite": "➕ إضافة موقع جديد",
-"set.clientName": "اسم العميل",
-"set.clientPh": "مثال: EL BAYRAK EQUIPE 1 MATIN",
-"set.siteName": "اسم الموقع / الوجهة",
-"set.sitePh": "مثال: ANNABA",
-"set.coords": "الإحداثيات",
-"set.coordsPh": "مثال: 36.6417633, 3.2927783",
-"set.saveSite": "حفظ الموقع",
-"set.bulkImport": "📦 استيراد جماعي من Wialon (KML)",
-"set.uploadKml": "رفع ملفات KML",
-"set.pasteKml": "...أو الصق محتوى KML مباشرة",
-"set.pastePh": "الصق نص KML الخام هنا",
-"set.addPasted": "إضافة من KML الملصق",
-"set.manualSites": "المواقع المضافة يدويًا",
-"set.loadedZones": "مناطق KML المحمّلة",
-"set.wialon": "اتصال Wialon",
-"set.wialonDesc": "الصق رمزك للتأكد من أنه يعمل ويرى أسطولك. لا يُحفظ شيء هنا.",
-"set.relay": "عنوان Relay",
-"set.server": "خادم Wialon",
-"set.token": "رمز API",
-"set.tokenPh": "الصق رمز Wialon هنا",
-"set.testBtn": "اختبار الاتصال"
-}
-};
-
-let currentLang = 'en';
-
-function t(key) {
-  const dict = I18N[currentLang] || I18N.en;
-  if (dict[key] !== undefined) return dict[key];
-  if (I18N.en[key] !== undefined) return I18N.en[key];
-  return key;
-}
-
-function applyI18n() {
-  document.documentElement.lang = currentLang;
-  document.documentElement.dir = (currentLang === 'ar') ? 'rtl' : 'ltr';
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    el.textContent = t(el.getAttribute('data-i18n'));
-  });
-  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
-    el.setAttribute('placeholder', t(el.getAttribute('data-i18n-ph')));
-  });
-  document.querySelectorAll('[data-i18n-title]').forEach(el => {
-    el.setAttribute('title', t(el.getAttribute('data-i18n-title')));
-  });
-  document.querySelectorAll('.lang-btn').forEach(b => {
-    b.classList.toggle('active', b.dataset.lang === currentLang);
-  });
-}
-
-function setLanguage(lang) {
-  if (!I18N[lang]) lang = 'en';
-  currentLang = lang;
-  try { localStorage.setItem('omd_lang', lang); } catch (e) {}
-  applyI18n();
-}
 </script>
 </body>
 </html>
