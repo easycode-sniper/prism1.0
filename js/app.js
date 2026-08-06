@@ -1,5 +1,27 @@
-alert("MODULE LOADED!");
-// --- FIREBASE CONFIGURATION START ---
+console.log("1. Module started");
+
+try {
+    console.log("2. Initializing Firebase...");
+    const app = initializeApp(firebaseConfig);
+    console.log("3. Firebase App created:", app.name);
+    
+    const auth = getAuth(app);
+    console.log("4. Auth initialized");
+    
+    const db = getFirestore(app);
+    console.log("5. Firestore initialized");
+
+    // Check if login function exists
+    console.log("6. Checking for showLoginScreen function...");
+    if (typeof showLoginScreen === 'function') {
+        console.log("7. Calling showLoginScreen...");
+        showLoginScreen();
+    } else {
+        console.error("ERROR: showLoginScreen function not found!");
+    }
+} catch (error) {
+    console.error("FATAL ERROR:", error);
+}// --- FIREBASE CONFIGURATION START ---
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { getFirestore, collection, addDoc, query, onSnapshot, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
