@@ -1,31 +1,9 @@
-console.log("1. Module started");
-
-try {
-    console.log("2. Initializing Firebase...");
-    const app = initializeApp(firebaseConfig);
-    console.log("3. Firebase App created:", app.name);
-    
-    const auth = getAuth(app);
-    console.log("4. Auth initialized");
-    
-    const db = getFirestore(app);
-    console.log("5. Firestore initialized");
-
-    // Check if login function exists
-    console.log("6. Checking for showLoginScreen function...");
-    if (typeof showLoginScreen === 'function') {
-        console.log("7. Calling showLoginScreen...");
-        showLoginScreen();
-    } else {
-        console.error("ERROR: showLoginScreen function not found!");
-    }
-} catch (error) {
-    console.error("FATAL ERROR:", error);
-}// --- FIREBASE CONFIGURATION START ---
+// --- FIREBASE CONFIGURATION START ---
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { getFirestore, collection, addDoc, query, onSnapshot, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+// 1. Define Config FIRST
 const firebaseConfig = {
   apiKey: "AIzaSyAkp2_QCYY8-seRxpiKB5-KcpXUp6ZzU_E",
   authDomain: "prism-1-b3561.firebaseapp.com",
@@ -35,10 +13,60 @@ const firebaseConfig = {
   appId: "1:277958247459:web:631bbd580972ebe26f5d96"
 };
 
+// 2. Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+
+console.log("✅ Firebase Initialized Successfully");
+
+// 3. Simple Login Check (Runs immediately)
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    console.log("👤 User logged in:", user.email);
+    // User is signed in, show the main app
+    if (typeof initMap === 'function') initMap(); 
+  } else {
+    console.log("🔒 No user logged in. Showing login screen...");
+    // User is signed out, show login screen
+    showLoginScreen();
+  }
+});
+
+// 4. Define the Login Screen Function (If it doesn't exist yet)
+if (typeof showLoginScreen === 'undefined') {
+    window.showLoginScreen = function() {
+        // Hide everything else first
+        document.body.innerHTML = ''; 
+        
+        // Create simple login form
+        const loginHtml = `
+            <div style="display:flex;justify-content:center;align-items:center;height:100vh;font-family:sans-serif;">
+                <div style="padding:20px;border:1px solid #ccc;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,0.1);">
+                    <h2>Prism Fleet Login</h2>
+                    <input type="email" id="email" placeholder="Email" style="display:block;margin:10px 0;padding:8px;width:100%;box-sizing:border-box;"><br>
+                    <input type="password" id="password" placeholder="Password" style="display:block;margin:10px 0;padding:8px;width:100%;box-sizing:border-box;"><br>
+                    <button onclick="handleLogin()" style="padding:10px 20px;background:#007bff;color:white;border:none;border-radius:4px;cursor:pointer;">Login</button>
+                    <p id="error-msg" style="color:red;margin-top:10px;"></p>
+                </div>
+            </div>
+        `;
+        document.body.innerHTML = loginHtml;
+
+        window.handleLogin = async function() {
+            const email = document.getElementById('email').value;
+            const pass = document.getElementById('password').value;
+            try {
+                await signInWithEmailAndPassword(auth, email, pass);
+                // Page will reload automatically on success due to onAuthStateChanged
+            } catch (error) {
+                document.getElementById('error-msg').innerText = error.message;
+            }
+        };
+    };
+}
 // --- FIREBASE CONFIGURATION END ---
+
 // ==========================================
 // 🚚 CUSTOM TRUCK FLEET MASTER DIRECTORY (89)
 // ==========================================
