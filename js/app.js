@@ -18,6 +18,31 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+// --- FIX: Wait for Login Status ---
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        console.log("✅ User logged in:", user.email);
+        // Hide login, show app
+        const loginScreen = document.getElementById('login-screen');
+        const mainApp = document.getElementById('main-app'); // Or whatever your main container ID is
+        
+        if(loginScreen) loginScreen.style.display = 'none';
+        if(mainApp) mainApp.style.display = 'block';
+        
+        // Initialize your map here if needed
+        if(typeof initMap === 'function') initMap(); 
+    } else {
+        console.log("⏳ Waiting for login...");
+        // Show login, hide app
+        const loginScreen = document.getElementById('login-screen');
+        const mainApp = document.getElementById('main-app');
+        
+        if(loginScreen) loginScreen.style.display = 'flex'; // or 'block'
+        if(mainApp) mainApp.style.display = 'none';
+    }
+});
+// --- END FIX ---
+
 console.log("✅ Firebase Initialized Successfully");
 
 // 3. Simple Login Check (Runs immediately)
