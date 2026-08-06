@@ -1,3 +1,21 @@
+// --- FIREBASE CONFIGURATION START ---
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, collection, addDoc, query, onSnapshot, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAkp2_QCYY8-seRxpiKB5-KcpXUp6ZzU_E",
+  authDomain: "prism-1-b3561.firebaseapp.com",
+  projectId: "prism-1-b3561",
+  storageBucket: "prism-1-b3561.firebasestorage.app",
+  messagingSenderId: "277958247459",
+  appId: "1:277958247459:web:631bbd580972ebe26f5d96"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+// --- FIREBASE CONFIGURATION END ---
 // ==========================================
 // 🚚 CUSTOM TRUCK FLEET MASTER DIRECTORY (89)
 // ==========================================
