@@ -1418,18 +1418,18 @@ svg.leaflet-image-layer.leaflet-interactive path {
 </div>
 </div>
 <div id="tabs">
-<button class="tab-btn" data-view="dashboard">🏠 Dashboard</button>
-<button class="tab-btn active" data-view="dispatch">🗺️ Dispatch</button>
-<button class="tab-btn" data-view="monitoring">🔎 Monitoring</button>
-<button class="tab-btn" data-view="queue">📋 Queue</button>
-<button class="tab-btn" data-view="fleet">📊 Active Fleet</button>
-<button class="tab-btn" data-view="history">📜 History</button>
-<button class="tab-btn" data-view="notifications">🔔 Notifications</button>
-<button class="tab-btn" data-view="settings">⚙️ Settings</button>
+<button class="tab-btn" data-view="dashboard">🏠 <span data-i18n="tab.dashboard">Dashboard</span></button>
+<button class="tab-btn active" data-view="dispatch">🗺️ <span data-i18n="tab.dispatch">Dispatch</span></button>
+<button class="tab-btn" data-view="monitoring">🔎 <span data-i18n="tab.monitoring">Monitoring</span></button>
+<button class="tab-btn" data-view="queue">📋 <span data-i18n="tab.queue">Queue</span></button>
+<button class="tab-btn" data-view="fleet">📊 <span data-i18n="tab.fleet">Active Fleet</span></button>
+<button class="tab-btn" data-view="history">📜 <span data-i18n="tab.history">History</span></button>
+<button class="tab-btn" data-view="notifications">🔔 <span data-i18n="tab.notifications">Notifications</span></button>
+<button class="tab-btn" data-view="settings">⚙️ <span data-i18n="tab.settings">Settings</span></button>
 </div>
 <div id="topbar-stats">
 <span id="topbar-live-stats" style="color:var(--text-dim);"></span>
-<span>Active: <strong id="topbar-active-count">0</strong> / <span id="topbar-fleet-total">—</span></span>
+<span><span data-i18n="topbar.active">Active</span>: <strong id="topbar-active-count">0</strong> / <span id="topbar-fleet-total">—</span></span>
 </div>
 </div>
 
@@ -1723,18 +1723,19 @@ svg.leaflet-image-layer.leaflet-interactive path {
             </div>
         </div>
 
-     <!-- ================= SETTINGS VIEW ================= -->
+    <!-- ================= SETTINGS VIEW ================= -->
 <div id="view-settings" class="view" style="flex-direction:column; padding:24px 28px; overflow-y:auto;">
 <div style="max-width:760px; margin:0 auto; padding-top:20px; width:100%;">
+
 <div id="fleet-header">
 <div>
-<h2>Settings</h2>
-<p>Language, appearance, geofences, Wialon connection and monitoring thresholds.</p>
+<h2 data-i18n="set.title">Settings</h2>
+<p data-i18n="set.desc">Language, appearance, geofences, Wialon connection and monitoring thresholds.</p>
 </div>
 </div>
 
 <div class="settings-card">
-<div class="section-label">Language</div>
+<div class="section-label" data-i18n="set.language">Language</div>
 <div class="settings-row">
 <div id="lang-toggle">
 <button class="lang-btn active" data-lang="en">English</button>
@@ -1745,91 +1746,92 @@ svg.leaflet-image-layer.leaflet-interactive path {
 </div>
 
 <div class="settings-card">
-<div class="section-label">Appearance</div>
+<div class="section-label" data-i18n="set.appearance">Appearance</div>
 <div class="settings-row">
-<span class="settings-label">Theme</span>
+<span class="settings-label" data-i18n="set.theme">Theme</span>
 <div id="theme-toggle">
-<button class="theme-btn active" data-theme="dark" title="Dark theme">🌙</button>
-<button class="theme-btn" data-theme="light" title="Light theme">☀️</button>
-<button class="theme-btn" data-theme="black" title="Black theme">⚫</button>
+<button class="theme-btn active" data-theme="dark" data-i18n-title="set.themeDark" title="Dark theme">🌙</button>
+<button class="theme-btn" data-theme="light" data-i18n-title="set.themeLight" title="Light theme">☀️</button>
+<button class="theme-btn" data-theme="black" data-theme="black" data-i18n-title="set.themeBlack" title="Black theme">⚫</button>
 </div>
 </div>
 </div>
 
 <div class="settings-card">
-<div class="section-label">Monitoring &amp; Alerts</div>
+<div class="section-label" data-i18n="set.thresholds">Monitoring &amp; Alerts</div>
 <div class="settings-grid">
 <div class="form-group">
-<label for="set-speed-limit">Speed limit (km/h)</label>
+<label for="set-speed-limit" data-i18n="set.speedLimit">Speed limit (km/h)</label>
 <input type="number" id="set-speed-limit" min="10" max="200" value="90">
 </div>
 <div class="form-group">
-<label for="set-deviation-buffer">Route deviation buffer (m)</label>
+<label for="set-deviation-buffer" data-i18n="set.deviationBuffer">Route deviation buffer (m)</label>
 <input type="number" id="set-deviation-buffer" min="50" max="5000" value="400">
 </div>
 <div class="form-group">
-<label for="set-arrival-buffer">Site arrival buffer (m)</label>
+<label for="set-arrival-buffer" data-i18n="set.arrivalBuffer">Site arrival buffer (m)</label>
 <input type="number" id="set-arrival-buffer" min="50" max="5000" value="300">
 </div>
 <div class="form-group">
-<label for="set-poll-interval">Live polling interval (seconds)</label>
+<label for="set-poll-interval" data-i18n="set.pollInterval">Live polling interval (seconds)</label>
 <input type="number" id="set-poll-interval" min="10" max="600" value="60">
 </div>
 </div>
 </div>
 
 <div class="settings-card">
-<div class="section-label">Geofences &amp; Sites</div>
-<p style="font-size:.85rem; color:var(--text-dim); margin-bottom:14px;">Add a new destination site directly, or bulk-import real zone shapes from Wialon KML exports.</p>
+<div class="section-label" data-i18n="set.geofences">Geofences &amp; Sites</div>
+<p style="font-size:.85rem; color:var(--text-dim); margin-bottom:14px;" data-i18n="set.geoDesc">Add a new destination site directly, or bulk-import real zone shapes from Wialon KML exports.</p>
 
-<div class="section-label" style="margin-bottom:10px;">➕ Add a new site</div>
+<div class="section-label" style="margin-bottom:10px;" data-i18n="set.addSite">➕ Add a new site</div>
 <div class="form-group">
-<label for="manual-site-client">Client name</label>
-<input type="text" id="manual-site-client" placeholder="e.g. EL BAYRAK EQUIPE 1 MATIN">
-<label for="manual-site-name">Site / destination name</label>
-<input type="text" id="manual-site-name" placeholder="e.g. ANNABA">
-<label for="manual-site-coords">Coordinates</label>
-<input type="text" id="manual-site-coords" placeholder="e.g. 36.6417633, 3.2927783">
-<button id="manual-site-save-btn" class="action-btn" style="margin-top:8px;">Save site</button>
+<label for="manual-site-client" data-i18n="set.clientName">Client name</label>
+<input type="text" id="manual-site-client" data-i18n-ph="set.clientPh" placeholder="e.g. EL BAYRAK EQUIPE 1 MATIN">
+<label for="manual-site-name" data-i18n="set.siteName">Site / destination name</label>
+<input type="text" id="manual-site-name" data-i18n-ph="set.sitePh" placeholder="e.g. ANNABA">
+<label for="manual-site-coords" data-i18n="set.coords">Coordinates</label>
+<input type="text" id="manual-site-coords" data-i18n-ph="set.coordsPh" placeholder="e.g. 36.6417633, 3.2927783">
+<button id="manual-site-save-btn" class="action-btn" style="margin-top:8px;" data-i18n="set.saveSite">Save site</button>
 </div>
 <div id="manual-site-result" style="margin-top:10px;"></div>
 
 <hr style="margin:22px 0;">
-<div class="section-label" style="margin-bottom:10px;">📦 Bulk import from Wialon (KML)</div>
+<div class="section-label" style="margin-bottom:10px;" data-i18n="set.bulkImport">📦 Bulk import from Wialon (KML)</div>
 <div class="form-group">
-<label for="geofence-file-input">Upload KML file(s)</label>
+<label for="geofence-file-input" data-i18n="set.uploadKml">Upload KML file(s)</label>
 <input type="file" id="geofence-file-input" accept=".kml" multiple>
-<label for="geofence-paste-area" style="margin-top:10px;">...or paste KML content directly</label>
-<textarea id="geofence-paste-area" rows="6" placeholder="Paste raw KML XML here" style="font-family:'IBM Plex Mono', monospace; font-size:.8rem;"></textarea>
-<button id="geofence-paste-btn" class="action-btn secondary" style="margin-top:6px;">Add from pasted KML</button>
+<label for="geofence-paste-area" style="margin-top:10px;" data-i18n="set.pasteKml">...or paste KML content directly</label>
+<textarea id="geofence-paste-area" rows="6" data-i18n-ph="set.pastePh" placeholder="Paste raw KML XML here" style="font-family:'IBM Plex Mono', monospace; font-size:.8rem;"></textarea>
+<button id="geofence-paste-btn" class="action-btn secondary" style="margin-top:6px;" data-i18n="set.addPasted">Add from pasted KML</button>
 </div>
 <div id="geofence-ingest-summary" style="margin-top:14px;"></div>
 
 <hr style="margin:18px 0;">
-<div class="section-label" style="margin-bottom:10px;">Manually added sites</div>
+<div class="section-label" style="margin-bottom:10px;" data-i18n="set.manualSites">Manually added sites</div>
 <div id="manual-site-list"></div>
 <hr style="margin:18px 0;">
-<div class="section-label" style="margin-bottom:10px;">Loaded KML zones</div>
+<div class="section-label" style="margin-bottom:10px;" data-i18n="set.loadedZones">Loaded KML zones</div>
 <div id="geofence-list"></div>
 </div>
 
 <div class="settings-card">
-<div class="section-label">Wialon Connection</div>
-<p style="font-size:.85rem; color:var(--text-dim); margin-bottom:14px;">Paste your token to confirm it authenticates and can see your fleet. Nothing here is saved to the file.</p>
+<div class="section-label" data-i18n="set.wialon">Wialon Connection</div>
+<p style="font-size:.85rem; color:var(--text-dim); margin-bottom:14px;" data-i18n="set.wialonDesc">Paste your token to confirm it authenticates and can see your fleet. Nothing here is saved to the file.</p>
 <div class="form-group">
-<label for="wialon-relay">Relay URL <span style="color:var(--text-dim); font-weight:400;">(Cloudflare Worker — bypasses the CORS block)</span></label>
+<label for="wialon-relay" data-i18n="set.relay">Relay URL</label>
 <input type="text" id="wialon-relay" value="https://wialon-relay1.ferdjellahsouhaibomd.workers.dev">
-<label for="wialon-server">Wialon server</label>
+<label for="wialon-server" data-i18n="set.server">Wialon server</label>
 <input type="text" id="wialon-server" value="hst-api.wialon.eu">
-<label for="wialon-token">API token</label>
-<input type="password" id="wialon-token" placeholder="Paste your Wialon token here">
-<button id="wialon-test-btn" class="action-btn" style="margin-top:10px;">Test Connection</button>
+<label for="wialon-token" data-i18n="set.token">API token</label>
+<input type="password" id="wialon-token" data-i18n-ph="set.tokenPh" placeholder="Paste your Wialon token here">
+<button id="wialon-test-btn" class="action-btn" style="margin-top:10px;" data-i18n="set.testBtn">Test Connection</button>
 </div>
 <div id="wialon-test-result" style="margin-top:20px;"></div>
 </div>
 
 </div>
 </div>
+
 
         <!-- ================= DISPATCH QUEUE VIEW ================= -->
         <div id="view-queue" class="view">
